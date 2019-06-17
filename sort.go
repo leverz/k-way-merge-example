@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package sort
 
 func merge(left []int, right []int) []int {
 	result := make([]int, 0)
@@ -31,7 +29,7 @@ func merge(left []int, right []int) []int {
 	return result
 }
 
-func mergeSort(list []int) []int {
+func Sort(list []int) []int {
 	listLength := len(list)
 	if listLength < 2 {
 		return list
@@ -41,14 +39,5 @@ func mergeSort(list []int) []int {
 	left := list[:mid]
 	right := list[mid:]
 
-	return merge(mergeSort(left), mergeSort(right))
-}
-
-func main() {
-	array := []int{
-		55, 94, 87, 1, 4, 32, 11, 77, 39, 42, 64, 53, 70, 12, 9,
-	}
-	fmt.Println(array)
-	array = mergeSort(array)
-	fmt.Println(array)
+	return merge(Sort(left), Sort(right))
 }
