@@ -1,4 +1,4 @@
-package sort
+package kwaymerge
 
 func merge(left []int, right []int) []int {
 	result := make([]int, 0)
@@ -40,4 +40,25 @@ func Sort(list []int) []int {
 	right := list[mid:]
 
 	return merge(Sort(left), Sort(right))
+}
+
+func TwoSort(list []int) []int {
+	listLength := len(list)
+	if listLength < 2 {
+		return list
+	}
+
+	mid := listLength / 2
+	left := list[:mid]
+	right := list[mid:]
+
+	sortChan := make(chan []int, 2)
+	defer close(sortChan)
+	go func() {
+		sortChan <- Sort(left)
+	}()
+	go func() {
+		sortChan <- Sort(right)
+	}()
+	return merge(<- sortChan, <-sortChan)
 }
